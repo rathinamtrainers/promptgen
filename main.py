@@ -70,7 +70,7 @@ class RAGManager:
 
     def process_project(self, project):
         logging.debug(f"Processing project: {project.name}")
-        project_dir = self.base_directory / project
+        project_dir = project
         repos_dir = project_dir / "repos"
         docs_dir  =  project_dir / "docs"
 
@@ -79,7 +79,7 @@ class RAGManager:
         docs_dir.mkdir(parents=True, exist_ok=True)
 
         # Load existing cache
-        project_cache = self._load_project_cache(project)
+        project_cache = self._load_project_cache(project.name)
 
         # Get all project repositories.
         repos = [repo for repo in repos_dir.iterdir() if repo.is_dir()]
@@ -112,9 +112,13 @@ class RAGManager:
         supported_files = []
         try:
             for file in repo.rglob("*"):
-                # Skip hidden files and directories
-                if file.name.startswith("."):
+                # Skip if any parent directory is hidden
+                if any(part.startswith('.') for part in file.parts):
                     continue
+
+                # Only yield non-hidden files
+                if file.is_file() and not file.name.startswith('.'):
+                    yield str(file.absolute())
 
                 if file.is_file():
                     file_extension = file.suffix.lower()

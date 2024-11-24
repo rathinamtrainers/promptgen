@@ -1,4 +1,36 @@
+# Core dependencies
 langchain==0.3.7
-langchain-huggingface==0.1.2
 langchain-community==0.3.7
+langchain-huggingface==0.1.2
+langchain-chroma==0.1.4
+chromadb==0.5.18
+
+# Embedding models and ML
 torch==2.5.1+cu118
+sentence-transformers==3.3.0
+transformers==4.46.2
+
+# Document processing
+python-docx==1.1.2
+docx2txt==0.8
+pypdf==5.1.0
+markdown==3.7
+unstructured==0.16.5
+python-magic==0.4.27
+
+# Optional: for better PDF processing
+pdf2image==1.17.0
+pdfminer.six==20240706
+
+# File handling and utilities
+pathlib2==2.3.7
+tqdm==4.67.0
+
+# For handling various file types
+python-magic-bin==0.4.14
+
+
+# Others
+retry==0.9.2
+
+streamlit==1.40.1
